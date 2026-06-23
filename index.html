@@ -1,9 +1,9 @@
 <!DOCTYPE html>
-<htm l lang="ar" dir="rtl">
+<html lang="ar" dir="rtl">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>أوتاكو هب | OtakuHub</title>
+    <title>Otaku Hub | أوتاكو هب</title>
     <style>
         body {
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
@@ -30,43 +30,68 @@
             padding: 0 20px;
         }
         .description {
-            font-size: 1.2rem;
+            font-size: 1.1rem;
             line-height: 1.8;
             color: #e0e0e0;
             background-color: #1d1833;
-            padding: 25px;
+            padding: 20px;
             border-radius: 12px;
             border-right: 5px solid #2575fc;
             box-shadow: 0 4px 10px rgba(0,0,0,0.3);
             text-align: right;
+            margin-bottom: 30px;
         }
-        .categories-title {
-            margin-top: 40px;
-            font-size: 1.8rem;
-            color: #8a4fff;
-        }
-        .grid {
-            display: block;
-            margin-top: 20px;
-        }
-        .card {
+        .category-btn {
             background-color: #1d1833;
             padding: 20px;
-            margin-bottom: 15px;
+            margin-bottom: 10px;
             border-radius: 10px;
             text-align: right;
             box-shadow: 0 4px 6px rgba(0,0,0,0.2);
-            transition: 0.3s;
             border: 1px solid #2d254e;
-        }
-        .card h3 {
-            margin: 0 0 10px 0;
+            cursor: pointer;
+            font-size: 1.3rem;
+            font-weight: bold;
             color: #2575fc;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            transition: 0.3s;
         }
-        .card p {
-            margin: 0;
-            color: #b3b3b3;
+        .category-btn:hover {
+            background-color: #252044;
+            border-color: #2575fc;
+        }
+        .anime-content {
+            display: none;
+            background-color: #130f24;
+            border: 1px solid #2d254e;
+            border-top: none;
+            border-radius: 0 0 10px 10px;
+            padding: 15px;
+            margin-bottom: 20px;
+            margin-top: -15px;
+            text-align: right;
+            max-height: 500px;
+            overflow-y: auto;
+        }
+        .anime-item {
+            padding: 12px 0;
+            border-bottom: 1px solid #2d254e;
+        }
+        .anime-item:last-child {
+            border-bottom: none;
+        }
+        .anime-title {
+            font-size: 1.1rem;
+            color: #ff4a5a;
+            font-weight: bold;
+            margin-bottom: 5px;
+        }
+        .anime-desc {
             font-size: 0.95rem;
+            color: #b3b3b3;
+            line-height: 1.6;
         }
         footer {
             margin-top: 5px;
@@ -79,39 +104,228 @@
 <body>
 
     <header>
-        <h1>أوتاكو هب ✨</h1>
+        <h1>Otaku Hub ✨</h1>
     </header>
 
     <div class="container">
         <div class="description">
-            مرحبًا بك في موقعنا، دليلك الأول والنهائي لأفضل الأنميات التي تستحق وقتك الثمين! نوفر لك ترشيحات وقوائم منتقاة بعناية ومقسمة بدقة حسب تصنيفك المفضل: من أكشن وإثارة، غموض وذكاء، إلى دراما وخيال علمي. هنا ستجد تقييمات ومراجعات مشوقة وخالية تمامًا من الحرق لتختار جوهرتك القادمة بكل سهولة وتضمن مشاهدة ممتعة وإدمانية. ابدأ رحلتك الأوتاكو معنا الآن!
+            مرحبًا بك في موقعنا، دليلك الأول والنهائي لأفضل الأنميات التي تستحق وقتك الثمين! نوفر لك ترشيحات وقوائم منتقاة بعناية ومقسمة بدقة حسب تصنيفك المفضل. هنا ستجد تقييمات ومراجعات مشوقة وخالية تمامًا من الحرق لتختار جوهرتك القادمة بكل سهولة وتضمن مشاهدة ممتعة وإدمانية. ابدأ رحلتك الأوتاكو معنا الآن!
         </div>
 
-        <h2 class="categories-title">🎬 أقسام الموقع الرئيسية</h2>
-        
-        <div class="grid">
-            <div class="card">
-                <h3>🔥 أكشن وإثارة (Shonen)</h3>
-                <p>قريباً.. أفضل معارك وقصص الكفاح الأسطورية التي تحبس الأنفاس.</p>
+        <!-- قسم الأكشن والإثارة -->
+        <div class="category-btn" onclick="toggleCategory('action')">
+            <span>🔥 أكشن وإثارة (Shonen & Action)</span>
+            <span id="icon-action">➕</span>
+        </div>
+        <div id="action" class="anime-content">
+            <div class="anime-item">
+                <div class="anime-title">1. Attack on Titan (هجوم العمالقة)</div>
+                <div class="anime-desc">ملحمة أسطورية عن صراع البشرية ضد عمالقة آكلي للبشر، وتتحول القصة لصراع سياسي وفكري معقد ومذهل.</div>
             </div>
-            <div class="card">
-                <h3>🧠 غموض وأنمیات نفسية</h3>
-                <p>قريباً.. صراع العقول والحبكات المعقدة التي تجعلك تفكر في كل تفصيلة.</p>
+            <div class="anime-item">
+                <div class="anime-title">2. Hunter x Hunter (القناص)</div>
+                <div class="anime-desc">رحلة غون للبحث عن والده، أنمي يتميز بأفضل نظام قوى قتالية (النين) وحبكات سوداوية غير متوقعة.</div>
             </div>
-            <div class="card">
-                <h3>🌸 دراما وشريحة من الحياة</h3>
-                <p>قريباً.. قصص تلامس القلوب ومليئة بالمشاعر الإنسانية المؤثرة.</p>
+            <div class="anime-item">
+                <div class="anime-title">3. Naruto Shippuden (ناروتو شيبودن)</div>
+                <div class="anime-desc">قصة نينجا منبوذ يسعى وراء حلمه ليصبح قائد القرية (الهوكاجي)، مليء بالمعارك والدراما الأيقونية.</div>
             </div>
-            <div class="card">
-                <h3>🚀 خيال علمي وفانتازيا</h3>
-                <p>قريباً.. مغامرات السحر، السفر عبر الزمن، والعوالم الموازية.</p>
+            <div class="anime-item">
+                <div class="anime-title">4. One Piece (ون بيس)</div>
+                <div class="anime-desc">أعظم رحلة قراصنة في تاريخ الأنمي، لوفي يبحر مع طاقمه للبحث عن الكنز الأسطوري وبناء عالم من الحرية.</div>
+            </div>
+            <div class="anime-item">
+                <div class="anime-title">5. Jujutsu Kaisen (جوجوتسو كايسن)</div>
+                <div class="anime-desc">قتالات سحرة الجوجوتسو ضد اللعنات، يتميز بإنتاج بصري خارق للطبيعة ومعارك تحبس الأنفاس.</div>
+            </div>
+            <div class="anime-item">
+                <div class="anime-title">6. Demon Slayer (قاتل الشياطين)</div>
+                <div class="anime-desc">تانجيرو ينطلق في رحلة لإنقاذ أخته وتحويلها لبشرية مجدداً، برسم وإنتاج استوديو يوفوتيبل الأسطوري.</div>
+            </div>
+            <div class="anime-item">
+                <div class="anime-title">7. Fullmetal Alchemist: Brotherhood (كيميائي المعادن الكامل)</div>
+                <div class="anime-desc">أخوين يرتكبان خطأ فادحاً في الكيمياء وينطلقان في رحلة لاستعادة أجسادهما وسط مؤامرة حكومية ضخمة.</div>
+            </div>
+            <div class="anime-item">
+                <div class="anime-title">8. Vinland Saga (فينلاند ساغا)</div>
+                <div class="anime-desc">قصة انتقام تاريخية في عالم الفايكنج، تتحول لرحلة نفسية عميقة عن معنى السلام والحرية الحقيقية.</div>
+            </div>
+            <div class="anime-item">
+                <div class="anime-title">9. One Punch Man (رجل اللكمة الواحدة)</div>
+                <div class="anime-desc">بطل خارق يستطيع هزيمة أي خصم بلكمة واحدة، ويعاني من الملل الشديد في إطار كوميدي وأكشن أسطوري.</div>
+            </div>
+            <div class="anime-item">
+                <div class="anime-title">10. My Hero Academia (أكاديمية بطلي)</div>
+                <div class="anime-desc">في عالم يمتلك فيه الجميع قوى خارقة، ولد فتى بدون قوة لكنه ورث قوة البطل الأول ليدخل أكاديمية الأبطال.</div>
+            </div>
+            <!-- يمكنك تكرار الـ anime-item هنا لإضافة باقي الـ 50 أنمي بسهولة -->
+        </div>
+
+        <!-- قسم الغموض والأنميات النفسية -->
+        <div class="category-btn" onclick="toggleCategory('mystery')">
+            <span>🧠 غموض وأنمیات نفسية (Psychological & Mystery)</span>
+            <span id="icon-mystery">➕</span>
+        </div>
+        <div id="mystery" class="anime-content">
+            <div class="anime-item">
+                <div class="anime-title">1. Death Note (مذكرة الموت)</div>
+                <div class="anime-desc">طالب ذكي يجد مذكرة تقتل أي شخص يكتب اسمه فيها، ويبدأ صراع عقول عبقري ضد المحقق الغامض L.</div>
+            </div>
+            <div class="anime-item">
+                <div class="anime-title">2. Monster (وحش)</div>
+                <div class="anime-desc">طبيب جراح ينقذ حياة طفل، ليكتشف بعد سنوات أن هذا الطفل كبر ليصبح سفاحاً سيكوباتياً خطيراً، فيبدأ بملاحقته.</div>
+            </div>
+            <div class="anime-item">
+                <div class="anime-title">3. Code Geass (كود غياس)</div>
+                <div class="anime-desc">أمير متمرد يحصل على قوة السيطرة المطلقة على الآخرين، ويقود ثورة عبقرية لإسقاط إمبراطورية طاغية.</div>
+            </div>
+            <div class="anime-item">
+                <div class="anime-title">4. Erased (البلدة في غيابي)</div>
+                <div class="anime-desc">شاب يمتلك قدرة العودة بالزمن للخلف لعدة دقائق، لكن يتم إعادته فجأة 18 سنة للوراء لمنع جريمة قتل متسلسلة.</div>
+            </div>
+            <div class="anime-item">
+                <div class="anime-title">5. Classroom of the Elite (فصل النخبة)</div>
+                <div class="anime-desc">مدرسة غامضة يتم تقييم الطلاب فيها بناءً على ذكائهم وجدارتهم، وصراعات خفية يقودها البطل العبقري أيانوكوجي.</div>
+            </div>
+            <div class="anime-item">
+                <div class="anime-title">6. The Promised Neverland - S1 (نيفرلاند الموعودة)</div>
+                <div class="anime-desc">أطفال يعيشون في دار أيتام مثالية، ليكتشفوا حقيقة مرعبة وراء تبنيهم، ويبدأوا بالتخطيط لهروب عبقري.</div>
+            </div>
+            <div class="anime-item">
+                <div class="anime-title">7. Psycho-Pass (الممر النفسي)</div>
+                <div class="anime-desc">في عالم مستقبلي يتم قياس الحالة النفسية والميول الإجرامية للمواطنين عبر نظام إلكتروني، وصراع المحققين ضد النظام.</div>
+            </div>
+            <div class="anime-item">
+                <div class="anime-title">8. Re:Zero (بدء الحياة في عالم آخر)</div>
+                <div class="anime-desc">شاب ينتقل لعالم فانتازيا ويمتلك قدرة "العودة من الموت"، ليعيش في حلقة مفرغة من المعاناة والألغاز النفسية.</div>
+            </div>
+            <div class="anime-item">
+                <div class="anime-title">9. Parasyte (الطفيليات)</div>
+                <div class="anime-desc">كائنات فضائية تخترق أجساد البشر وتسيطر على عقولهم، لكن يفشل طفيلي في السيطرة على عقل بطل القصة ليتشاركا جسداً واحداً.</div>
+            </div>
+            <div class="anime-item">
+                <div class="anime-title">10. Steins;Gate (بوابة شتاينز)</div>
+                <div class="anime-desc">مجموعة من العلماء الهواة يخترعون بالصدفة طريقة لإرسال رسائل عبر الزمن، مما يدخلهم في معركة نفسية معقدة لمنع كارثة مستقبلية.</div>
             </div>
         </div>
+
+        <!-- قسم الدراما وشريحة من الحياة -->
+        <div class="category-btn" onclick="toggleCategory('drama')">
+            <span>🌸 دراما وشريحة من الحياة (Drama & Slice of Life)</span>
+            <span id="icon-drama">➕</span>
+        </div>
+        <div id="drama" class="anime-content">
+            <div class="anime-item">
+                <div class="anime-title">1. Violet Evergarden (فايوليت إيفرغاردن)</div>
+                <div class="anime-desc">فتاة كانت تُستخدم كآلة حرب، تبدأ العمل في كتابة الرسائل للناس لتفهم معنى كلمة "أحبك" التي قالها رئيسها قبل اختفائه.</div>
+            </div>
+            <div class="anime-item">
+                <div class="anime-title">2. Your Lie in April (كذبتك في أبريل)</div>
+                <div class="anime-desc">عازف بيانو عبقري يفقد شغفه وقدرته على سماع الموسيقى بعد وفاة والدته، وتغير حياته عازفة كمان متمردة ومرحة.</div>
+            </div>
+            <div class="anime-item">
+                <div class="anime-title">3. A Silent Voice (صوت صامت - فيلم)</div>
+                <div class="anime-desc">قصة درامية مؤثرة عن فتاة صماء تعرضت للتنمر في طفولتها، ومحاولة المتنمر نفسه التكفير عن ذنبه بعدما كبر.</div>
+            </div>
+            <div class="anime-item">
+                <div class="anime-title">4. Anohana (ما زلنا لا نعرف اسم الزهرة)</div>
+                <div class="anime-desc">مجموعة أصدقاء طفولة تفرقوا بعد وفاة صديقتهم، ليعود شبحها مجدداً وتجمعهم لتحقيق أمنيتها الأخيرة في أجواء درامية باكية.</div>
+            </div>
+            <div class="anime-item">
+                <div class="anime-title">5. Great Teacher Onizuka - GTO (المعلم العظيم أونيزوكا)</div>
+                <div class="anime-desc">عضو عصابات سابق يقرر أن يصبح معلماً في مدرسة، ويستخدم أساليبه المجنونة وغير التقليدية لحل مشاكل طلابه النفسية والاجتماعية.</div>
+            </div>
+            <div class="anime-item">
+                <div class="anime-title">6. Horimiya (هوريميا)</div>
+                <div class="anime-desc">قصة رومانسية لطيفة وواقعية عن شخصين يخفيان شخصيتهما الحقيقية في المدرسة، ويلتقيان بالصدفة خارجها لتنشأ بينهما علاقة دافئة.</div>
+            </div>
+            <div class="anime-item">
+                <div class="anime-title">7. Clannad: After Story (كلاناد)</div>
+                <div class="anime-desc">واحد من أقوى الأنميات الدرامية التاريخية التي تناقش الحياة بعد التخرج، المسؤولية، والروابط العائلية بشكل مؤثر للغاية.</div>
+            </div>
+            <div class="anime-item">
+                <div class="anime-title">8. March Comes in Like a Lion (مارس يأتي كالأسد)</div>
+                <div class="anime-desc">لاعب "شوغي" محترف يعاني من الاكتئاب والعزلة، تبدأ حياته في التغير تدريجياً بعد تعرفه على عائلة من ثلاث أخوات دافئتين.</div>
+            </div>
+            <div class="anime-item">
+                <div class="anime-title">9. Fruits Basket (سلة الفواكه)</div>
+                <div class="anime-desc">فتاة طيبة تعيش مع عائلة غامضة مصابة بلعنة التحول إلى حيوانات الأبراج الصينية عند معانقة الجنس الآخر، وتساعدهم على تخطي آلامهم.</div>
+            </div>
+            <div class="anime-item">
+                <div class="anime-title">10. ReLIFE (إعادة الحياة)</div>
+                <div class="anime-desc">شاب عاطل في اواخر العشرينيات يخوض تجربة علمية تعيده لسن الـ 17 ليعيد دراسة الثانوية لمدة سنة ويصلح مسار حياته.</div>
+            </div>
+        </div>
+
+        <!-- قسم الخيال علمي والفانتازيا -->
+        <div class="category-btn" onclick="toggleCategory('scifi')">
+            <span>🚀 خيال علمي وفانتازيا (Sci-Fi & Fantasy)</span>
+            <span id="icon-scifi">➕</span>
+        </div>
+        <div id="scifi" class="anime-content">
+            <div class="anime-item">
+                <div class="anime-title">1. Frieren: Beyond Journey's End (فريرن: ما بعد نهاية الرحلة)</div>
+                <div class="anime-desc">فانتازيا ساحرة وهادئة عن قزم ساحرة تعيش لآلاف السنين، تبدأ رحلة جديدة لاستكشاف قيمة الوقت والعلاقات الإنسانية بعد وفاة رفاقها الأبطال.</div>
+            </div>
+            <div class="anime-item">
+                <div class="anime-title">2. Sword Art Online (فن السيف عبر الإنترنت)</div>
+                <div class="anime-desc">آلاف اللاعبين يعلقون داخل لعبة واقع افتراضي، والموت داخل اللعبة يعني الموت في الحياة الحقيقية، فينطلق كيريتو لإنهاء اللعبة.</div>
+            </div>
+            <div class="anime-item">
+                <div class="anime-title">3. Dr. STONE (دكتور ستون)</div>
+                <div class="anime-desc">يتحول العالم بأكمله إلى حجارة فجأة، ويستيقظ عبقري العلوم "سينكو" بعد آلاف السنين ليعيد بناء الحضارة البشرية من الصفر باستخدام العلم.</div>
+            </div>
+            <div class="anime-item">
+                <div class="anime-title">4. Mushoku Tensei (تجسد العاطل)</div>
+                <div class="anime-desc">أب الـ "إيسيكاي" الحديث؛ شاب فاشل يموت ويولد مجدداً في عالم سحر وفانتازيا محتفظاً بذكرياته، عازماً على عيش حياته الجديدة بجدية.</div>
+            </div>
+            <div class="anime-item">
+                <div class="anime-title">5. That Time I Got Reincarnated as a Slime (تجسدي كـ هلام)</div>
+                <div class="anime-desc">موظف يموت ويولد في عالم آخر على هيئة "مخلوق هلامي" ضعيف، لكنه يمتلك مهارات فريدة تمكنه من بناء إمبراطورية للوحوش.</div>
+            </div>
+            <div class="anime-item">
+                <div class="anime-title">6. Cyberpunk: Edgerunners (سايبر بانك)</div>
+                <div class="anime-desc">في مدينة مستقبلية مهووسة بالتكنولوجيا وتعديل الأجساد، يحاول فتى الشارع البقاء على قيد الحياة بأن يصبح خارجاً عن القانون.</div>
+            </div>
+            <div class="anime-item">
+                <div class="anime-title">7. Made in Abyss (صُنع في الهاوية)</div>
+                <div class="anime-desc">فتاة وروبوت ينزلان إلى حفرة عملاقة غامضة مليئة بالكائنات العجيبة واللعنات المميّزة، أنمي برسم لطيف لكن بأحداث مرعبة وسوداوية.</div>
+            </div>
+            <div class="anime-item">
+                <div class="anime-title">8. No Game No Life (لا اللعب لا الحياة)</div>
+                <div class="anime-desc">أخ وأخت عباقرة في الألعاب ينتقلان لعالم كل شيء فيه يُحل عبر الألعاب والرهانات، ويسعيان لهزيمة حاكم العالم.</div>
+            </div>
+            <div class="anime-item">
+                <div class="anime-title">9. Overlord (أوفرلورد)</div>
+                <div class="anime-desc">لاعب يعلق داخل لعبته المفضلة بعد إغلاق السيرفرات، لكن بشخصية زعيم الأشرار المرعب، ويبدأ في السيطرة على العالم الجديد.</div>
+            </div>
+            <div class="anime-item">
+                <div class="anime-title">10. Neon Genesis Evangelion (إيفانجيليون)</div>
+                <div class="anime-desc">تحفة كلاسيكية في الخيال العلمي والنفسي؛ حيث يقود المراهقون آليين عملاقين لحماية الأرض من كائنات غامضة تدعى "الملائكة".</div>
+            </div>
+        </div>
+
     </div>
 
     <footer>
         جميع الحقوق محفوظة © أوتاكو هب 2026
     </footer>
+
+    <!-- كود الجافا سكريبت لتشغيل الضغط والتفاعل -->
+    <script>
+        function toggleCategory(id) {
+            var content = document.getElementById(id);
+            var icon = document.getElementById('icon-' + id);
+            
+            if (content.style.display === "block") {
+                content.style.display = "none";
+                icon.innerText = "➕";
+            } else {
+                content.style.display = "block";
+                icon.innerText = "➖";
+            }
+        }
+    </script>
 
 </body>
 </html>
