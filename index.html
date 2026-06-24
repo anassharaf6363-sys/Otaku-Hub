@@ -130,18 +130,37 @@
         .remove-fav { color: var(--active-color); cursor: pointer; font-weight: bold; font-size: 1.1rem; transition: 0.2s; }
         .remove-fav:hover { transform: scale(1.2); }
 
-        /* === أزرار الأقسام (الأكورديون) === */
+        /* === أزرار الأقسام (الأكورديون المطور) === */
         .category-btn {
             background-color: var(--container-bg); padding: 22px; margin-bottom: 15px;
             border-radius: 16px; text-align: right; box-shadow: var(--shadow);
-            border: 1px solid var(--border-color); cursor: pointer; font-size: 1.3rem;
-            font-weight: bold; color: var(--text-color); display: flex;
+            border: 1px solid var(--border-color); cursor: pointer; display: flex;
             justify-content: space-between; align-items: center;
             transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
         }
         .category-btn:hover {
             background-color: var(--btn-hover); border-color: var(--accent-color); transform: translateY(-2px);
         }
+        
+        /* حاوية نصوص الأزرار لمنع شقلبة الأقواس */
+        .btn-text-content {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            flex-wrap: wrap; /* يضمن مرونة تامة على الشاشات الصغيرة */
+        }
+        .category-btn .arabic-title {
+            font-size: 1.3rem;
+            font-weight: bold;
+            color: var(--text-color);
+        }
+        .category-btn .english-title {
+            font-size: 1.1rem;
+            color: var(--item-desc);
+            direction: ltr; /* حماية تامة للنص الإنجليزي والرموز */
+            display: inline-block;
+        }
+
         .arrow { display: inline-block; transition: transform 0.3s ease, color 0.3s ease; font-size: 1.1rem; color: var(--item-desc); }
         .category-btn.active { border-color: var(--active-color); background-color: var(--btn-hover); }
         .category-btn.active .arrow { transform: rotate(180deg); color: var(--active-color); }
@@ -275,7 +294,10 @@
             </div>
 
             <div class="category-btn" onclick="toggleCategory(this, 'action')">
-                <span>🔥 أكشن وإثارة (Shonen & Action)</span>
+                <div class="btn-text-content">
+                    <span class="arabic-title">🔥 أكشن وإثارة</span>
+                    <span class="english-title" dir="ltr">(Shonen & Action)</span>
+                </div>
                 <span class="arrow">▼</span>
             </div>
             <div id="action" class="anime-content">
@@ -283,7 +305,10 @@
             </div>
 
             <div class="category-btn" onclick="toggleCategory(this, 'mystery')">
-                <span>🧠 غموض وأنمیات نفسية (Psychological & Mystery)</span>
+                <div class="btn-text-content">
+                    <span class="arabic-title">🧠 غموض وأنميات نفسية</span>
+                    <span class="english-title" dir="ltr">(Psychological & Mystery)</span>
+                </div>
                 <span class="arrow">▼</span>
             </div>
             <div id="mystery" class="anime-content">
@@ -291,7 +316,10 @@
             </div>
 
             <div class="category-btn" onclick="toggleCategory(this, 'drama')">
-                <span>🌸 دراما وشريحة من الحياة (Drama & Slice of Life)</span>
+                <div class="btn-text-content">
+                    <span class="arabic-title">🌸 دراما وشريحة من الحياة</span>
+                    <span class="english-title" dir="ltr">(Drama & Slice of Life)</span>
+                </div>
                 <span class="arrow">▼</span>
             </div>
             <div id="drama" class="anime-content">
@@ -299,7 +327,10 @@
             </div>
 
             <div class="category-btn" onclick="toggleCategory(this, 'scifi')">
-                <span>🚀 خيال علمي وفانتازيا (Sci-Fi & Fantasy)</span>
+                <div class="btn-text-content">
+                    <span class="arabic-title">🚀 خيال علمي وفانتازيا</span>
+                    <span class="english-title" dir="ltr">(Sci-Fi & Fantasy)</span>
+                </div>
                 <span class="arrow">▼</span>
             </div>
             <div id="scifi" class="anime-content">
@@ -729,7 +760,7 @@
             document.getElementById('anime-watch-link').href = "https://www.crunchyroll.com";
             
             // حقن المقالات الفلسفية الطويلة والنقدية في الأسفل بشكل مبهر
-            document.getElementById('article-p1').innerText = `يتميز هذا العمل الاستثنائي ببنيته الدرامية والفلسفية شديدة التعقيد. العمل يتخطى تماماً فكرة القصص التقليدية المباشرة، بل يغوص في دراسات نفسية واجتماعية عميقة تتناول قضايا الحرية، الأخلاق الرمادية، وصراع البقاء الإنساني ضد قوى الظلام والظروف القاهرة. هنا لا توجد شخصيات مسطحة، بل بناء متكامل ومبرر لكل دافع وفعل وسلوك، مما يجعله عملاً إدمانياً يرسخ في عقول المشاهدين لسنوات طويلة بعد نهايته.`;
+            document.getElementById('article-p1').innerText = `يتميز هذا العمل الاستثنائي ببنيته الدرامية والفلسفية شديدة التعقيد. العمل يتخطى تماماً فكرة القصص التقليدية المباشرة، بل يغوص في دراسات نفسية واجتماعية عميقة تتناول قضايا الحرية، الأخلاق الرمادية، وصراع البقاء الإنساني ضد قوى الظلام والظروف القاهرة. هنا لا توجد شخصيات مسطحة، بل بناء متكامل ومبرر لكل دافع وفعل وسلوك, مما يجعله عملاً إدمانياً يرسخ في عقول المشاهدين لسنوات طويلة بعد نهايته.`;
             document.getElementById('article-p2').innerText = `من الناحية الإنتاجية والجمالية، قدم الاستوديو ثورة بصرية حقيقية في التحريك والمؤثرات الخاصة ثلاثية الأبعاد، واستكمل مسيرته برؤية إخراجية سوداوية ومبهرة تتناسب تماماً مع طبيعة الأحداث والحروب النفسية أو الجسدية. كل هذا مصحوب بخلفيات موسيقية وأوركسترالية مهيبة تجعل إعادة مشاهدة العمل تجربة ساحرة ومتكاملة تعصف بالحواس في كل لقطة مشوقة.`;
 
             // تحديث حالة زر المفضلة بناءً على تواجده في المصفوفة
