@@ -5,160 +5,256 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Otaku Hub | أوتاكو هب</title>
     <style>
-        /* تعريف الألوان الافتراضية (وضع الليل) */
+        /* تعريف الألوان الافتراضية (وضع الليل المطور) */
         :root {
-            --bg-color: #0f0c1b;
-            --text-color: #ffffff;
-            --container-bg: #1d1833;
-            --border-color: #2d254e;
-            --btn-hover: #252044;
-            --content-bg: #130f24;
-            --desc-text: #e0e0e0;
-            --item-desc: #b3b3b3;
-            --btn-text-color: #2575fc;
+            --bg-color: #0a0712;
+            --text-color: #f1f1f6;
+            --container-bg: #140f26;
+            --border-color: #251b46;
+            --btn-hover: #1e163a;
+            --content-bg: #0f0a1c;
+            --desc-text: #d1cbdc;
+            --item-desc: #a59db5;
+            --accent-color: #7f5af0;
+            --active-color: #ff4a5a;
+            --header-grad: linear-gradient(135deg, #1f1235 0%, #0f0c1b 100%);
+            --shadow: 0 8px 24px rgba(0, 0, 0, 0.3);
         }
 
-        /* تعريف ألوان وضع النهار (Light Mode) */
+        /* تعريف ألوان وضع النهار المطور (Light Mode) */
         body.light-theme {
-            --bg-color: #f4f5f9;
-            --text-color: #1a1a2e;
+            --bg-color: #f4f6fa;
+            --text-color: #1a1625;
             --container-bg: #ffffff;
-            --border-color: #e0e0e0;
-            --btn-hover: #f0f2f5;
-            --content-bg: #fafafa;
-            --desc-text: #4a4a4a;
-            --item-desc: #666666;
-            --btn-text-color: #6a11cb;
+            --border-color: #e2e8f0;
+            --btn-hover: #f8fafc;
+            --content-bg: #fdfdfd;
+            --desc-text: #4a4557;
+            --item-desc: #64748b;
+            --accent-color: #6366f1;
+            --active-color: #ef4444;
+            --header-grad: linear-gradient(135deg, #6366f1 0%, #4f46e5 100%);
+            --shadow: 0 8px 24px rgba(148, 163, 184, 0.15);
         }
 
         body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
             background-color: var(--bg-color);
             color: var(--text-color);
             margin: 0;
             padding: 0;
             text-align: center;
-            transition: background-color 0.4s ease, color 0.4s ease;
+            transition: background-color 0.4s cubic-bezier(0.4, 0, 0.2, 1), color 0.4s cubic-bezier(0.4, 0, 0.2, 1);
         }
+
         header {
-            background: linear-gradient(135deg, #6a11cb 0%, #2575fc 100%);
-            padding: 40px 20px;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.5);
+            background: var(--header-grad);
+            padding: 50px 20px;
+            box-shadow: var(--shadow);
             position: relative;
+            border-bottom: 1px solid var(--border-color);
+            transition: background 0.4s ease;
         }
+
         header h1 {
             margin: 0;
-            font-size: 2.5rem;
+            font-size: 2.8rem;
             color: #fff;
-            text-shadow: 2px 2px 4px rgba(0,0,0,0.6);
+            letter-spacing: 1px;
+            text-shadow: 0 4px 12px rgba(0,0,0,0.3);
+            animation: float 3s ease-in-out infinite;
         }
-        /* زر تبديل الثيم (الليل والنهار) */
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-5px); }
+        }
+
+        /* زر تبديل الثيم الدائري الصغير والمطور */
         .theme-toggle {
             position: absolute;
             top: 25px;
-            left: 20px;
-            background: rgba(255, 255, 255, 0.2);
-            border: 1px solid rgba(255, 255, 255, 0.4);
+            left: 25px;
+            width: 44px;
+            height: 44px;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.12);
+            border: 1px solid rgba(255, 255, 255, 0.25);
             color: #fff;
-            padding: 8px 16px;
-            border-radius: 20px;
             cursor: pointer;
-            font-size: 0.95rem;
-            font-weight: bold;
-            backdrop-filter: blur(5px);
-            transition: 0.3s;
+            font-size: 1.3rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+            backdrop-filter: blur(8px);
+            -webkit-backdrop-filter: blur(8px);
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
         }
+
         .theme-toggle:hover {
-            background: rgba(255, 255, 255, 0.4);
-            transform: scale(1.05);
+            transform: scale(1.1) rotate(15deg);
+            background: rgba(255, 255, 255, 0.25);
+            box-shadow: 0 6px 16px rgba(0,0,0,0.25);
         }
+
+        body.light-theme .theme-toggle {
+            background: rgba(0, 0, 0, 0.05);
+            border: 1px solid rgba(0, 0, 0, 0.1);
+            color: #1a1625;
+        }
+        body.light-theme .theme-toggle:hover {
+            background: rgba(0, 0, 0, 0.1);
+        }
+
         .container {
-            max-width: 800px;
-            margin: 30px auto;
+            max-width: 850px;
+            margin: 40px auto;
             padding: 0 20px;
         }
+
         .description {
-            font-size: 1.1rem;
+            font-size: 1.15rem;
             line-height: 1.8;
             color: var(--desc-text);
             background-color: var(--container-bg);
-            padding: 20px;
-            border-radius: 12px;
-            border-right: 5px solid #2575fc;
-            box-shadow: 0 4px 10px rgba(0,0,0,0.15);
+            padding: 25px;
+            border-radius: 16px;
+            border-right: 6px solid var(--accent-color);
+            box-shadow: var(--shadow);
             text-align: right;
-            margin-bottom: 30px;
-            transition: background-color 0.4s ease, color 0.4s ease;
+            margin-bottom: 35px;
+            transition: all 0.4s ease;
         }
+
+        /* تنسيق أزرار الأقسام المطور */
         .category-btn {
             background-color: var(--container-bg);
-            padding: 20px;
-            margin-bottom: 10px;
-            border-radius: 10px;
+            padding: 22px;
+            margin-bottom: 12px;
+            border-radius: 14px;
             text-align: right;
-            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+            box-shadow: var(--shadow);
             border: 1px solid var(--border-color);
             cursor: pointer;
-            font-size: 1.3rem;
+            font-size: 1.25rem;
             font-weight: bold;
-            color: var(--btn-text-color);
+            color: var(--text-color);
             display: flex;
             justify-content: space-between;
             align-items: center;
-            transition: 0.3s;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
         }
+
         .category-btn:hover {
             background-color: var(--btn-hover);
-            border-color: #2575fc;
+            border-color: var(--accent-color);
+            transform: translateY(-2px);
         }
+
         .arrow {
             display: inline-block;
-            transition: transform 0.3s ease, color 0.3s ease;
-            font-size: 1.1rem;
-            color: var(--btn-text-color);
+            transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1), color 0.3s ease;
+            font-size: 1rem;
+            color: var(--item-desc);
         }
+
+        .category-btn.active {
+            border-color: var(--active-color);
+            background-color: var(--btn-hover);
+        }
+
         .category-btn.active .arrow {
             transform: rotate(180deg);
-            color: #ff4a5a;
+            color: var(--active-color);
         }
+
+        /* أنيميشن كونتنت الأنمي الانسيابي */
         .anime-content {
             display: none;
+            opacity: 0;
             background-color: var(--content-bg);
             border: 1px solid var(--border-color);
             border-top: none;
-            border-radius: 0 0 10px 10px;
-            padding: 15px;
-            margin-bottom: 20px;
-            margin-top: -15px;
+            border-radius: 0 0 14px 14px;
+            padding: 20px;
+            margin-bottom: 25px;
+            margin-top: -16px;
             text-align: right;
-            max-height: 600px;
+            max-height: 550px;
             overflow-y: auto;
-            transition: background-color 0.4s ease;
+            box-shadow: inset 0 4px 12px rgba(0,0,0,0.05);
         }
+
+        .category-btn.active + .anime-content {
+            display: block;
+            animation: slideDown 0.4s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+        }
+
+        @keyframes slideDown {
+            from {
+                opacity: 0;
+                transform: translateY(-12px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* تنسيق عناصر الأنمي الداخلية */
         .anime-item {
-            padding: 12px 0;
+            padding: 16px;
             border-bottom: 1px solid var(--border-color);
+            border-radius: 8px;
+            transition: all 0.2s ease;
         }
+
         .anime-item:last-child {
             border-bottom: none;
         }
-        .anime-title {
-            font-size: 1.1rem;
-            color: #ff4a5a;
-            font-weight: bold;
-            margin-bottom: 5px;
+
+        .anime-item:hover {
+            background-color: var(--container-bg);
+            padding-right: 22px;
         }
+
+        .anime-title {
+            font-size: 1.15rem;
+            color: var(--active-color);
+            font-weight: bold;
+            margin-bottom: 6px;
+            transition: color 0.3s ease;
+        }
+
         .anime-desc {
-            font-size: 0.95rem;
+            font-size: 0.98rem;
             color: var(--item-desc);
             line-height: 1.6;
             transition: color 0.4s ease;
         }
+
+        /* تخصيص السكرول بار ليناسب الشكل المودرن */
+        .anime-content::-webkit-scrollbar {
+            width: 6px;
+        }
+        .anime-content::-webkit-scrollbar-track {
+            background: transparent;
+        }
+        .anime-content::-webkit-scrollbar-thumb {
+            background: var(--border-color);
+            border-radius: 10px;
+        }
+        .anime-content::-webkit-scrollbar-thumb:hover {
+            background: var(--accent-color);
+        }
+
         footer {
-            margin-top: 20px;
-            padding: 20px;
-            font-size: 0.9rem;
-            color: #666;
+            margin-top: 50px;
+            padding: 25px;
+            font-size: 0.95rem;
+            color: var(--item-desc);
+            border-top: 1px solid var(--border-color);
         }
     </style>
 </head>
@@ -166,8 +262,8 @@
 
     <header>
         <h1>Otaku Hub ✨</h1>
-        <!-- زر التبديل المضاف -->
-        <button class="theme-toggle" id="themeBtn" onclick="toggleTheme()">☀️ وضع النهار</button>
+        <!-- زر التبديل الدائري الصغير المطور -->
+        <button class="theme-toggle" id="themeBtn" onclick="toggleTheme()" title="تبديل الوضع">☀️</button>
     </header>
 
     <div class="container">
@@ -217,7 +313,7 @@
             <div class="anime-item"><div class="anime-title">34. Berserk</div><div class="anime-desc">الرحلة السوداوية والقاسية للمبارز الأسود غاتس في الانتقام من صديقه السابق وسط عوالم شيطانية مرعبة.</div></div>
             <div class="anime-item"><div class="anime-title">35. D.Gray-man</div><div class="anime-desc">المعوذون يبحثون عن مادة الإينوسينس المقدسة لقتال وحوش الأكوما التي يصنعها صانع الألفية لتدمير البشرية.</div></div>
             <div class="anime-item"><div class="anime-title">36. Akame ga Kill!</div><div class="anime-desc">مجموعة من القتلة السريين (غارة الليل) يسعون لإسقاط الإمبراطورية الفاسدة عبر اغتيال قادتها الطغاة في معارك دموية.</div></div>
-            <div class="anime-item"><div class="anime-title">37. Drifters</div><div class="anime-desc">أبطال وقادة عسكريون تاريخيون يتم سحبهم فجأة قبل موتهم إلى عالم فانتازيا غريب لقيادة جيوش ومواجهة الدمار.</div></div>
+            <div class="anime-item"><div class="anime-title">37. Drifters</div><div class="anime-desc">أبطال وقة عسكريون تاريخيون يتم سحبهم فجأة قبل موتهم إلى عالم فانتازيا غريب لقيادة جيوش ومواجهة الدمار.</div></div>
             <div class="anime-item"><div class="anime-title">38. Rurouni Kenshin</div><div class="anime-desc">ساموراي جوال أقسم على عدم القتل مجدداً ويستخدم سيفاً ذو شفرة مقلوبة للتكفير عن ماضيه الدموي وحماية الضعفاء.</div></div>
             <div class="anime-item"><div class="anime-title">39. Yu Yu Hakusho</div><div class="anime-desc">فتى مشاغب يموت لإنقاذ طفل، فيعاد للحياة بصفة محقق روحي مكلف بمواجهة الشياطين والأرواح الشريرة.</div></div>
             <div class="anime-item"><div class="anime-title">40. Inuyasha</div><div class="anime-desc">فتاة في الثانوية تسقط في بئر لتجد نفسها في اليابان الإقطاعية وتتعاون مع هجين نصف شيطان لجمع شظايا جوهرة سحرية.</div></div>
@@ -267,7 +363,7 @@
             <div class="anime-item"><div class="anime-title">26. Mirai Nikki</div><div class="anime-desc">لعبة بقاء دموية يمنح فيها حاكم الوقت مفكرات مستقبلية لـ 12 شخصاً، والهدف هو أن يقتلوا بعضهم ليصبح الناجي الأخير هو الإله الجديد.</div></div>
             <div class="anime-item"><div class="anime-title">27. Deadman Wonderland</div><div class="anime-desc">طالب يتهم ظلماً بمجزرة في فصله ويُسجن في سجن مرعب مصمم كمدينة ملاهي، حيث يكتشف أنه يمتلك قوة للتلاعب بدمه كالسلاح.</div></div>
             <div class="anime-item"><div class="anime-title">28. Elfen Lied</div><div class="anime-desc">كائنات متحورة تمتلك أذرعاً خفية وقاتلة، تهرب إحداهن من معمل الأبحاث بعد ارتكاب مجزرة وتفقد ذاكرتها ليعتني بها شاب طيب.</div></div>
-            <div class="anime-item"><div class="anime-title">29. Kakegurui</div><div class="anime-desc">مدرسة خاصة للنخبة لا تقيم الطلاب بالدراسة، بل بمدى مهارتهم وذكائهم في ألعاب القمار والمراهنات المرعبة بعد الفصول.</div></div>
+            <div class="anime-item"><div class="anime-title">29. Kakegurui</div><div class="anime-desc">مدرسة خاصة للنخبة لا تقيم الطلاب بالدراسة، بل بمدى مهارتهم وذكائهم في ألعاب القمار والمراهنات مرعبة بعد الفصول.</div></div>
             <div class="anime-item"><div class="anime-title">30. Kaiji: Ultimate Survivor</div><div class="anime-desc">شاب غارق في الديون يجد نفسه مجبراً على ركوب سفينة قمار غامضة تابعة لمنظمة سرية، حيث يراهن بحياته للخروج من أزمته الفادحة.</div></div>
             <div class="anime-item"><div class="anime-title">31. One Outs</div><div class="anime-desc">رامي بيسبول عبقري في ألعاب المراهنات والشوارع، يوقع عقداً غريباً مع فريق محترف: يحصل على ملايين مقابل كل مخرج ويخسرها لكل نقطة.</div></div>
             <div class="anime-item"><div class="anime-title">32. No Game No Life</div><div class="anime-desc">أخ وأخت عباقرة في الألعاب ومصابين بوهن اجتماعي، ينتقلان لعالم خيالي تحل فيه كل الصراعات والحدود السياسية عبر الألعاب.</div></div>
@@ -285,7 +381,7 @@
             <div class="anime-item"><div class="anime-title">44. Subete ga F ni Naru</div><div class="anime-desc">أستاذ جامعي وطالبته يسافران إلى جزيرة معزولة لزيارة عالمة عبقرية تعيش في عزلة تامة، ليكتشفا جريمة قتل داخل غرفتها المغلقة.</div></div>
             <div class="anime-item"><div class="anime-title">45. Kubikiri Cycle</div><div class="anime-desc">مجموعة من العباقرة في مجالات مختلفة تتم دعوتهم إلى قصر في جزيرة معزولة، لتقع جريمة قطع رأس غامضة تطلّب تحقيقاً ذكياً.</div></div>
             <div class="anime-item"><div class="anime-title">46. ACCA: 13-Territory</div><div class="anime-desc">مفتش في وكالة الرقابة الحكومية يقوم برحلات تفتيشية لأقاليم الدولة الـ 13، ليكتشف بذكاء وجود شائعات عن انقلاب سياسي وشيك.</div></div>
-            <div class="anime-item"><div class="anime-title">47. Odd Taxi</div><div class="anime-desc">سائق تاكسي غامض على هيئة حيوان (والعالم كله كذلك) يستمع لقصص ركابه الغريبة، ليجد نفسه متورطاً في قضية اختفاء فتاة ومافيا.</div></div>
+            <div class="anime-item"><div class="anime-title">47. Odd Taxi</div><div class="anime-desc">سير تاكسي غامض على هيئة حيوان (والعالم كله كذلك) يستمع لقصص ركابه الغريبة، ليجد نفسه متورطاً في قضية اختفاء فتاة ومافيا.</div></div>
             <div class="anime-item"><div class="anime-title">48. Tomodachi Game</div><div class="anime-desc">مجموعة أصدقاء مخلصين يتم اختطافهم وإجبارهم على لعب ألعاب نفسية سادية لتسديد ديون ضخمة، وتعتمد الألعاب على تدمير الثقة بينهم.</div></div>
             <div class="anime-item"><div class="anime-title">49. Talentless Nana</div><div class="anime-desc">مدرسة في جزيرة معزولة لتدريب مراهقين يمتلكون قوى خارقة لقتال "أعداء البشرية"، تنتقل إليهم فتاة ذكية جداً لكنها لا تملك أي قوى.</div></div>
             <div class="anime-item"><div class="anime-title">50. Moriarty the Patriot</div><div class="anime-desc">إعادة تصور لخصم شيرلوك هولمز الشهير، جيمس موريارتي، كعبقري يسعى لتدمير النظام الطبقي الفاسد في بريطانيا عبر جرائم مدروسة.</div></div>
@@ -413,33 +509,40 @@
         جميع الحقوق محفوظة © أوتاكو هب 2026
     </footer>
 
-    <!-- الأكواد البرمجية التفاعلية للموقع -->
     <script>
-        // دالة فتح وغلق الأقسام بالسهم المطور
+        // دالة التحكم في فتح وغلق الأقسام
         function toggleCategory(btn, id) {
             var content = document.getElementById(id);
             
-            if (content.style.display === "block") {
-                content.style.display = "none";
+            // قفل أي قسم تاني مفتوح عشان المظهر يفضل منظم (إضافة اختيارية ممتازة)
+            if (!btn.classList.contains("active")) {
+                var allButtons = document.querySelectorAll('.category-btn');
+                var allContents = document.querySelectorAll('.anime-content');
+                allButtons.forEach(b => b.classList.remove('active'));
+                allContents.forEach(c => c.style.display = 'none');
+            }
+
+            if (btn.classList.contains("active")) {
                 btn.classList.remove("active");
+                content.style.display = "none";
             } else {
-                content.style.display = "block";
                 btn.classList.add("active");
+                content.style.display = "block";
             }
         }
 
-        // دالة تبديل الليل والنهار (Light/Dark Mode)
+        // دالة تبديل الليل والنهار الذكية (أيقونات دائرية)
         function toggleTheme() {
             var body = document.body;
             var themeBtn = document.getElementById('themeBtn');
             
             body.classList.toggle('light-theme');
             
-            // تغيير النص على الزرار بناءً على الثيم الحالي
+            // تبديل الإيموجي داخل الدائرة
             if (body.classList.contains('light-theme')) {
-                themeBtn.innerHTML = '🌙 وضع الليل';
+                themeBtn.innerHTML = '🌙';
             } else {
-                themeBtn.innerHTML = '☀️ وضع النهار';
+                themeBtn.innerHTML = '☀️';
             }
         }
     </script>
