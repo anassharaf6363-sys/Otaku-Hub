@@ -581,7 +581,6 @@
         };
 
         const shortDescriptions = {
-            // كأمثلة لأول عناصر وسيتم توليد كروت الـ 200 بشكل مصفوفة ذكية لضمان السرعة والامتلاء التام
             'action-1': "ملحمة أسطورية عن صراع البشرية ضد عمالقة آكلي للبشر، وتتحول القصة لصراع سياسي وفكري معقد ومذهل.",
             'action-2': "رحلة غون للبحث عن والده، أنمي يتميز بأفضل نظام قوى قتالية (النين) وحبكات سوداوية غير متوقعة.",
             'action-3': "قصة نينجا منبوذ يسعى وراء حلمه ليصبح قائد القرية (الهوكاجي)، مليء بالمعارك والدراما الأيقونية.",
@@ -599,7 +598,7 @@
         let favorites = JSON.parse(localStorage.getItem('otaku_favs_ready')) || [];
         let currentAnimeKey = "";
 
-        // بناء الـ 200 كارت سينمائي ديناميكياً داخل الأقسام فور فتح الموقع لضمان خلو الملف من التكرار والملل
+        // بناء الـ 200 كارت سينمائي ديناميكياً داخل الأقسام فور فتح الموقع
         window.onload = function() {
             categories.forEach(cat => {
                 let grid = document.getElementById(`grid-${cat}`);
@@ -608,26 +607,65 @@
                 for(let i=1; i<=50; i++) {
                     let key = `${cat}-${i}`;
                     let title = mainTitles[key] || `أنمي ${key}`;
-                    let desc = shortDescriptions[key] || "مغامرة وحبكة درامية ساحرة ومشوقة جداً لا يمكن تفويتها؛ تمنحك تجربة خيالية لا تُنسى مع مراجعة شاملة وخالية من الحرق.";
+                    let englishTitle = title.split(" (")[0]; // استخراج الاسم الإنجليزي النظيف للبحث
                     
-                    // روابط بوسترات ذكية وعالية الجودة متغيرة حسب نوع القسم السينمائي
-                    let posterNum = 1500 + (i * 7);
+                    // بوستر مؤقت (Unsplash متناسق مع القسم) لحد ما الصورة الحقيقية تحمل بنعومة
                     let posterUrl = `https://images.unsplash.com/photo-${cat === 'action' ? '1578632767115-351597cf2477' : cat === 'mystery' ? '1607604276583-eef5d076aa5f' : cat === 'drama' ? '1518709268805-4e9042af9f23' : '1451187580459-43490279c0fa'}?w=400&q=80`;
 
                     let card = document.createElement('div');
                     card.className = "anime-card";
                     card.setAttribute('onclick', `openAnime('${key}')`);
                     card.innerHTML = `
-                        <img src="${posterUrl}" alt="${title}">
+                        <img src="${posterUrl}" data-title="${englishTitle}" class="anime-card-img" style="opacity: 0.6; transition: opacity 0.4s ease;" alt="${title}">
                         <div class="anime-card-info">
-                            <div class="anime-card-title">${title.split(" (")[0]}</div>
+                            <div class="anime-card-title">${englishTitle}</div>
                         </div>
                     `;
                     grid.appendChild(card);
                 }
             });
             updateFavUI();
+            loadRealPosters(); // استدعاء دالة تحميل الصور الحقيقية فوراً بعد بناء الهيكل
         };
+
+        // 1. دالة جلب رابط الصورة الحقيقية من الإنترنت وحفظها في الكاش (LocalStorage)
+        async function fetchAnimePoster(animeTitle) {
+            if (!animeTitle || animeTitle.startsWith("أنمي")) {
+                return "https://via.placeholder.com/300x450?text=Otaku+Hub";
+            }
+            // توليد مفتاح مشفر فريد لكل أنمي في الكاش
+            const cacheKey = `poster_${btoa(unescape(encodeURIComponent(animeTitle))).replace(/=/g, '')}`;
+            if (localStorage.getItem(cacheKey)) return localStorage.getItem(cacheKey);
+            
+            try {
+                const response = await fetch(`https://api.jikan.moe/v4/anime?q=${encodeURIComponent(animeTitle)}&limit=1`);
+                const data = await response.json();
+                if (data.data && data.data.length > 0) {
+                    const imgUrl = data.data[0].images.jpg.large_image_url || data.data[0].images.jpg.image_url;
+                    localStorage.setItem(cacheKey, imgUrl); // تخزين في الكاش لمنع استهلاك الفيتش مجدداً
+                    return imgUrl;
+                }
+            } catch (e) { 
+                console.error("خطأ في جلب صورة الأنمي:", animeTitle); 
+            }
+            return "https://via.placeholder.com/300x450?text=Anime"; // صورة احتياطية في حالة تعطل السيرفر
+        }
+
+        // 2. دالة اللف على الكروت وتحديث الصور ببطء لحماية موقعك من حظر الـ API
+        async function loadRealPosters() {
+            const images = document.querySelectorAll('.anime-card-img');
+            for (let img of images) {
+                const title = img.getAttribute('data-title');
+                if (title && !img.classList.contains('loaded') && !title.startsWith("أنمي")) {
+                    const realSrc = await fetchAnimePoster(title);
+                    img.src = realSrc;
+                    img.style.opacity = "1"; // تأثير ظهور سينمائي كامل ناعم
+                    img.classList.add('loaded');
+                    // تأخير 350 مللي ثانية لحماية الأداء ومنع الحظر التلقائي من السيرفر
+                    await new Promise(resolve => setTimeout(resolve, 350));
+                }
+            }
+        }
 
         // دالة تحكم الأكورديون وفتح الأقسام مع إغلاق البقية لنظافة المظهر
         function toggleCategory(btn, id) {
@@ -665,7 +703,13 @@
 
             // حقن البيانات والروابط الديناميكية بناء على المفتاح المدخل
             document.getElementById('anime-title').innerText = fullTitle;
-            document.getElementById('anime-poster').src = `https://images.unsplash.com/photo-${key.includes('action') ? '1578632767115-351597cf2477' : key.includes('mystery') ? '1607604276583-eef5d076aa5f' : key.includes('drama') ? '1518709268805-4e9042af9f23' : '1451187580459-43490279c0fa'}?w=600`;
+            
+            // وضع بوستر احتياطي وعمل فيتش فوري للصورة الحقيقية لعرضها بجودة فائقة في صفحة العرض
+            let detailsPoster = document.getElementById('anime-poster');
+            detailsPoster.src = `https://images.unsplash.com/photo-${key.includes('action') ? '1578632767115-351597cf2477' : key.includes('mystery') ? '1607604276583-eef5d076aa5f' : key.includes('drama') ? '1518709268805-4e9042af9f23' : '1451187580459-43490279c0fa'}?w=600`;
+            fetchAnimePoster(cleanTitle).then(realSrc => {
+                detailsPoster.src = realSrc;
+            });
             
             // روابط فيديوهات تريلر متنوعة وتلقائية للتجربة الفخمة
             let trailerIds = ["MGRm4IzK1SQ", "d6kBeWjRIc8", "VQGCKyvzIM4", "2ePrVAnvFIs"];
